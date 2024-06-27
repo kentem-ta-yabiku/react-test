@@ -1,0 +1,28 @@
+/* 第3問：参考サイトと同じになるようにデザイン調整 */
+.App {
+  padding: 30px;
+}
+
+.button {
+  background-color: antiquewhite;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.input {
+  height: 25px;
+}
+
+.label-input {
+  display: flex;
+}
+
+.book-register {
+  display: flex;
+}
+
+.filterable-book-table {
+  display: flex;
+}
