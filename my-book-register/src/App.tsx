@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import FilterableBookTable from './components/filterableBookTable';
 import { BookItemModel } from './models';
+import IsbnFrom from './components/IsbnFrom';
+import AddIsbnButton from './components/AddIsbnButton';
 
 function App() {
   const [isbn, setIsbn] = useState('');
@@ -32,19 +34,17 @@ function App() {
     ]);
   }
 
+  // 更新関数setIsbnを子に直接渡さないためのハンドラ
+  const handleSetIsbn = (value: string) => {
+    setIsbn(value);
+  }
+
   return (
     <div className="App">
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
       <div className="book-register">
-        <div className="label-input">
-          <label className="label">
-            ISBNコード
-          </label>
-          <input className="input" placeholder="入力してください" value={isbn} onChange={(e) => setIsbn(e.target.value)}></input>
-        </div>
-        <button className="button" onClick={handleClickButton}>
-          書籍登録
-        </button>
+        <IsbnFrom isbn={isbn} handleSetState={handleSetIsbn} />
+        <AddIsbnButton handleOnClick={handleClickButton}/>
       </div>
       {/* 第1問：コンポーネントに分割 ↑ ↑ ↑ ↑ ↑ ↑ */}
       <hr />
