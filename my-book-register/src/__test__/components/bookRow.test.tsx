@@ -20,6 +20,20 @@ describe("削除, 貸出, 返却ボタンのテスト", () => {
   it("貸出ボタンで「貸出中」になる", () => {
     render(<Test/>);
     const lornBtn = screen.getByText("貸出");
-    expect(lornBtn).toBeInTheDocument()
+    const lornText = screen.getByText("利用可能");
+    expect(lornText).toBeInTheDocument();
+
+    fireEvent.click(lornBtn);
+    
+    const updateLornText = screen.getByText("貸出中");
+    expect(updateLornText).toBeInTheDocument();
+  })
+
+  it("返却ボタンで「貸出中」になる", () => {
+
+  })
+
+  it("貸出ボタンで「貸出中」になる", () => {
+
   })
 })
