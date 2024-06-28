@@ -1,6 +1,7 @@
 /* 第3問：参考サイトと同じになるようにデザイン調整 */
 .App {
   padding: 30px;
+  text-align: center;
 }
 
 .button {
@@ -17,12 +18,18 @@
 
 .label-input {
   display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .book-register {
   display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .filterable-book-table {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

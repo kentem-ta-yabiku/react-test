@@ -10,7 +10,7 @@ const BookRow = ({ bookItem, onClickDelete, onClickLendingSwitch }: Props) => {
   return (
     <tr>
       <td>{bookItem.name}</td>
-      <td>{'貸出中 or 利用可能'}</td>
+      <td>{bookItem.isOnLoan? "貸出中" : "利用可能"}</td>
       <td>
         <button className="button" onClick={() => onClickDelete(bookItem.id)}>
           削除

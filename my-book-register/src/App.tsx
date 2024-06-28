@@ -39,6 +39,25 @@ function App() {
     setIsbn(value);
   }
 
+  const switchIsLeading = (id: string) => {
+    const filterdBooks = books.map((book) => {
+      if(book.id !== id) return book
+      else { 
+        const newBook = {...book}
+        newBook.isOnLoan = !newBook.isOnLoan
+        return newBook
+      }
+    })
+    setBooks([...filterdBooks])
+  }
+
+  const deleteBooks = (id: string) => {
+    const filterdBooks = books.filter((book) => {
+      return book.id !== id;
+    })
+    setBooks([...filterdBooks])
+  }
+
   return (
     <div className="App">
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
@@ -50,13 +69,9 @@ function App() {
       <hr />
       <FilterableBookTable
         books={books}
-        onClickDelete={(id) => {
-            {/* 第2問：貸出 or 返却 or 削除の処理を追加 */}            
-          }
+        onClickDelete={(id) => deleteBooks(id)
         }
-        onClickLendingSwitch={(id) => {
-            {/* 第2問：貸出 or 返却 or 削除の処理を追加 */}            
-          }
+        onClickLendingSwitch={(id) => switchIsLeading(id)
         }
       />
     </div>
