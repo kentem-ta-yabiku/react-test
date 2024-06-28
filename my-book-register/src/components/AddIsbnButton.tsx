@@ -5,11 +5,13 @@ interface Props {
 }
 
 const AddIsbnButton = ({handleOnClick}:Props) => {
+
   return (
-    <button className="button" onClick={handleOnClick}>
-          書籍登録
+    <button className="button" onClick={handleOnClick} >
+        書籍登録
     </button>
   )
 }
+
 
 export default AddIsbnButton

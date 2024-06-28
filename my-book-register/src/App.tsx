@@ -24,19 +24,35 @@ function App() {
       });
   };
 
+  const isUniqueBooks = (name: string) => {
+    const fillterdBooks = books.filter((book) => {
+      return book.name !== name;
+    })
+    if (fillterdBooks.length !== books.length){
+      return false
+    }else{
+      return true
+    }
+  }
+
   const onPostCompleted = (postedItem: Omit<BookItemModel, 'id'>): void => {
-    setBooks((prev) => [
-      ...prev,
-      {
-        id: prev.length.toString(),
-        ...postedItem,
-      },
-    ]);
+    if(isUniqueBooks(postedItem.name)){
+      setBooks((prev) => [
+        ...prev,
+        {
+          id: prev.length.toString(),
+          ...postedItem,
+        },
+      ]);
+    }
   }
 
   // 更新関数setIsbnを子に直接渡さないためのハンドラ
   const handleSetIsbn = (value: string) => {
-    setIsbn(value);
+    // gをつけることで文字列全体に適応できるらしい. replaceAll?みたいなのがありませんでした。
+    const withoutHyphenValue = value.replace(/-/g, '')
+    console.log(withoutHyphenValue)
+    setIsbn(withoutHyphenValue);
   }
 
   const switchIsLeading = (id: string) => {
@@ -63,7 +79,7 @@ function App() {
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
       <div className="book-register">
         <IsbnFrom isbn={isbn} handleSetState={handleSetIsbn} />
-        <AddIsbnButton handleOnClick={handleClickButton}/>
+        <AddIsbnButton  handleOnClick={handleClickButton}  />
       </div>
       {/* 第1問：コンポーネントに分割 ↑ ↑ ↑ ↑ ↑ ↑ */}
       <hr />
