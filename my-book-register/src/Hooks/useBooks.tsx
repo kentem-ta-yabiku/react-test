@@ -5,7 +5,7 @@ export const useBooks = () => {
   const [isbn, setIsbn] = useState('');
   const [books, setBooks] = useState<BookItemModel[]>([]);
 
-  const handleClickButton = (): void => {
+  const getBooksByIsbn = (): void => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
       .then((response) => response.json())
       .then((data) => {
@@ -73,7 +73,7 @@ export const useBooks = () => {
   return {
     books,
     isbn,
-    handleClickButton,
+    getBooksByIsbn,
     handleSetIsbn,
     switchIsLeading,
     deleteBooks,
