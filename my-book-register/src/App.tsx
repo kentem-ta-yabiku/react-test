@@ -2,61 +2,27 @@ import { useState } from 'react';
 import './App.css';
 import FilterableBookTable from './components/filterableBookTable';
 import { BookItemModel } from './models';
+import IsbnFrom from './components/IsbnFrom';
+import AddIsbnButton from './components/AddIsbnButton';
+import { useBooks } from './Hooks/useBooks';
 
 function App() {
-  const [isbn, setIsbn] = useState('');
-  const [books, setBooks] = useState<BookItemModel[]>([]);
-
-  const handleClickButton = (): void => {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.totalItems === 0) {
-          alert('登録されていない ISBN コードです。');
-          return;
-        }
-        onPostCompleted({
-          name: data.items[0].volumeInfo.title,
-          isOnLoan: false,
-        });
-      });
-  };
-
-  const onPostCompleted = (postedItem: Omit<BookItemModel, 'id'>): void => {
-    setBooks((prev) => [
-      ...prev,
-      {
-        id: prev.length.toString(),
-        ...postedItem,
-      },
-    ]);
-  }
+  const {books, isbn, handleSetIsbn, getBooksByIsbn, deleteBooks, switchIsLeading} = useBooks();
 
   return (
     <div className="App">
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
       <div className="book-register">
-        <div className="label-input">
-          <label className="label">
-            ISBNコード
-          </label>
-          <input className="input" placeholder="入力してください" value={isbn} onChange={(e) => setIsbn(e.target.value)}></input>
-        </div>
-        <button className="button" onClick={handleClickButton}>
-          書籍登録
-        </button>
+        <IsbnFrom isbn={isbn} handleSetState={handleSetIsbn} />
+        <AddIsbnButton  handleOnClick={getBooksByIsbn}  />
       </div>
       {/* 第1問：コンポーネントに分割 ↑ ↑ ↑ ↑ ↑ ↑ */}
       <hr />
       <FilterableBookTable
         books={books}
-        onClickDelete={(id) => {
-            {/* 第2問：貸出 or 返却 or 削除の処理を追加 */}            
-          }
+        onClickDelete={(id) => deleteBooks(id)
         }
-        onClickLendingSwitch={(id) => {
-            {/* 第2問：貸出 or 返却 or 削除の処理を追加 */}            
-          }
+        onClickLendingSwitch={(id) => switchIsLeading(id)
         }
       />
     </div>
